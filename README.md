@@ -18,13 +18,30 @@ WORK/TODO
   * compute part of landuse=forest | natural=wood with leaf_type & leaf_cycle information
 * render landuse in a webmap, or use OSMlanduse.org
 
+# Import OSM data using imposm
+
+## Create a database
+
+The instructions for creating the db are in create-db.sh.
+Run the following in a terminal to create this db:
+
+sudo su postgres
+sh ./create-db.sh
+exit
+sudo service postgresql restart
+
+## Import OSM data into the database
+imposm --proj=EPSG:3857 --read belgium-latest.osm.bz2 -m imposm-mapping.py
+imposm -U osm -d osmlanduse -m imposm-mapping.py --write --optimize --deploy-production-tables
 
 
-* sum the area of the fields: https://gis.stackexchange.com/questions/17180/how-to-sum-area-of-polygons-by-values-occuring-in-multiple-fields#17187
+imposm -d osmlanduse --remove-backup-tables
 
-With pyqgis:
+
 
 # Select the layer in QGIS toc and then run:
+
+
 layer = iface.activeLayer()
 
 tot_area = 0
@@ -50,3 +67,9 @@ print area_forest/tot_area
 print area_meadow/tot_area
 print area_residential/tot_area
 print area_farmland/tot_area
+
+* sum the area of the fields: https://gis.stackexchange.com/questions/17180/how-to-sum-area-of-polygons-by-values-occuring-in-multiple-fields#17187
+
+see also https://nyalldawson.net/tag/pyqgis/
+
+With pyqgis:
