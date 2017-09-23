@@ -41,6 +41,23 @@ imposm -d osmlanduse --remove-backup-tables
 
 # Select the layer in QGIS toc and then run:
 
+TODO:
+* clip by province
+
+[out:json][timeout:25];
+{{geocodeArea:Belgium}}->.searchArea;
+(
+  relation["admin_level"="6"](area.searchArea);
+);
+out body;
+>;
+out skel qt;
+
+country: admin_level=2
+regions: admin_level=4
+
+
+* manage self-intersection
 
 layer = iface.activeLayer()
 
@@ -67,9 +84,8 @@ print area_forest/tot_area
 print area_meadow/tot_area
 print area_residential/tot_area
 print area_farmland/tot_area
+print tot_area/(1000*1000)
 
 * sum the area of the fields: https://gis.stackexchange.com/questions/17180/how-to-sum-area-of-polygons-by-values-occuring-in-multiple-fields#17187
 
 see also https://nyalldawson.net/tag/pyqgis/
-
-With pyqgis:
