@@ -3,9 +3,7 @@
 
 WORK/TODO
 
-* Define the custom mapping of landuse tags
-* Import data using imposm and the custom mapping
-* Access db in QGIS
+* Refine the custom mapping of landuse tags
 * Do some geoprocessing
   * self-intersection: how is superimposed the landuse?
 
@@ -17,6 +15,10 @@ WORK/TODO
   * compute the share of landuse type
   * compute part of landuse=forest | natural=wood with leaf_type & leaf_cycle information
 * render landuse in a webmap, or use OSMlanduse.org
+
+# Custom mapping
+
+See the `imposm-mapping.py` file for knowing the which OSM tags are considered as land-use in this analysis.
 
 # Import OSM data using imposm
 
@@ -39,11 +41,15 @@ imposm -d osmlanduse --remove-backup-tables
 
 
 
-# Select the layer in QGIS toc and then run:
+# Geoprocessing and indicators computation
 
 TODO:
 * clip by province
 
+## Get some administrative boundaries for analysing the land-use
+
+Overpass queries to export country, regions and provinces administrative levels:
+```
 [out:json][timeout:25];
 {{geocodeArea:Belgium}}->.searchArea;
 (
@@ -52,40 +58,27 @@ TODO:
 out body;
 >;
 out skel qt;
+```
+with different admin_level for
+* country: admin_level=2;
+* regions: admin_level=4;
+* provinces: admin_level=6.
 
-country: admin_level=2
-regions: admin_level=4
+After that, the layers were exported as geojson and saved as shp to be able to edit them. For unknown reason, the geojson was not editable in QGIS. Then, area of each features was computed. Some overlapping polygon (such as Province of Liège with and without the German community) were removed/clean.
 
-
+## Geoprocessing
 * manage self-intersection
-
-layer = iface.activeLayer()
-
-tot_area = 0
-area_forest = 0
-area_meadow = 0
-area_residential = 0
-area_farmland = 0
-
-for f in layer.getFeatures():
-  # sum all areas
-  tot_area = tot_area + f['area']
-  # sum forested areas
-  if f['type'] == "forest":
-     area_forest = area_forest + f['area']
-  if f['type'] == "meadow":
-     area_meadow = area_meadow + f['area']
-  if f['type'] == "residential":
-     area_residential = area_residential + f['area']
-  if f['type'] == "farmland":
-     area_farmland = area_farmland + f['area']
-
-print area_forest/tot_area
-print area_meadow/tot_area
-print area_residential/tot_area
-print area_farmland/tot_area
-print tot_area/(1000*1000)
+* layer intersections
 
 * sum the area of the fields: https://gis.stackexchange.com/questions/17180/how-to-sum-area-of-polygons-by-values-occuring-in-multiple-fields#17187
 
 see also https://nyalldawson.net/tag/pyqgis/
+
+
+pyqgis: compute area: https://gis.stackexchange.com/questions/180744/calculate-area-of-all-polygons-in-a-shapefile-and-save-it-in-attribute-column-a
+
+
+TO DO (after some tests)
+
+Intersection of the whole layer landusages with province, regions. Then, simply sum the area with filtering with right field
+ * error: Input layer A contains invalid geometries (feature 889179). Unable to complete intersection algorithm.
