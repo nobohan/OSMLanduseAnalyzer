@@ -16,13 +16,14 @@ WORK/TODO
   * compute part of landuse=forest | natural=wood with leaf_type & leaf_cycle information
 * render landuse in a webmap, or use OSMlanduse.org
 
-# Custom mapping
+# 1) Pre-processing
+## Custom mapping
 
 See the `imposm-mapping.py` file for knowing the which OSM tags are considered as land-use in this analysis.
 
-# Import OSM data using imposm
+## Import OSM data using imposm
 
-## Create a database
+### Create a database
 
 The instructions for creating the db are in create-db.sh.
 Run the following in a terminal to create this db:
@@ -32,19 +33,13 @@ sh ./create-db.sh
 exit
 sudo service postgresql restart
 
-## Import OSM data into the database
+### Import OSM data into the database
 imposm --proj=EPSG:3857 --read belgium-latest.osm.bz2 -m imposm-mapping.py
 imposm -U osm -d osmlanduse -m imposm-mapping.py --write --optimize --deploy-production-tables
 
 
 imposm -d osmlanduse --remove-backup-tables
 
-
-
-# Geoprocessing and indicators computation
-
-TODO:
-* clip by province
 
 ## Get some administrative boundaries for analysing the land-use
 
@@ -66,19 +61,29 @@ with different admin_level for
 
 After that, the layers were exported as geojson and saved as shp to be able to edit them. For unknown reason, the geojson was not editable in QGIS. Then, area of each features was computed. Some overlapping polygon (such as Province of Liège with and without the German community) were removed/clean.
 
-## Geoprocessing
-* manage self-intersection
-* layer intersections
+## 2) Geoprocessing
 
-* sum the area of the fields: https://gis.stackexchange.com/questions/17180/how-to-sum-area-of-polygons-by-values-occuring-in-multiple-fields#17187
-
-see also https://nyalldawson.net/tag/pyqgis/
-
-
-pyqgis: compute area: https://gis.stackexchange.com/questions/180744/calculate-area-of-all-polygons-in-a-shapefile-and-save-it-in-attribute-column-a
-
-
-TO DO (after some tests)
-
+### 1) Prepare the layers
+#### Make an intersection of the layer
 Intersection of the whole layer landusages with province, regions. Then, simply sum the area with filtering with right field
- * error: Input layer A contains invalid geometries (feature 889179). Unable to complete intersection algorithm.
+ * error: Input layer osm_landusages contains invalid geometries (feature 889179). Unable to complete intersection algorithm.
+
+--> This feature was a footway of about 2000 m². I've deleted it.
+
+Intersection works. It took about one night of processing.
+
+TODO: intersection by provinces
+
+#### Make a dissolve layer (for computing coverage)
+TODO
+#### Recompute polygon areas
+for both the dissolved and the intersect layers
+TODO
+
+# 2) Total coverage
+
+Run the script OSMLanduseAnalyzer_byregions.py
+
+# 3) Share of land-use
+
+TODO: script OSMLanduseAnalyzer_share_byregions.py
