@@ -76,6 +76,10 @@ TODO: intersection by provinces
 
 #### Make a dissolve layer (for computing coverage)
 TODO
+
+make a dissolved layer based on field "provinces" on the landuse_inter_BEprovinces
+
+
 #### Recompute polygon areas
 for both the dissolved and the intersect layers
 TODO
