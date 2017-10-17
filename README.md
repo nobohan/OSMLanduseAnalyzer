@@ -37,7 +37,7 @@ sudo service postgresql restart
 imposm --proj=EPSG:3857 --read belgium-latest.osm.bz2 -m imposm-mapping.py
 imposm -U osm -d osmlanduse -m imposm-mapping.py --write --optimize --deploy-production-tables
 
-
+To
 imposm -d osmlanduse --remove-backup-tables
 
 
@@ -72,7 +72,7 @@ Intersection of the whole layer landusages with province, regions. Then, simply 
 
 Intersection works. It took about one night of processing.
 
-TODO: intersection by provinces
+TODO: intersection by provinces: DONE
 
 #### Make a dissolve layer (for computing coverage)
 TODO
@@ -91,3 +91,12 @@ Run the script OSMLanduseAnalyzer_byregions.py
 # 3) Share of land-use
 
 TODO: script OSMLanduseAnalyzer_share_byregions.py
+
+
+TODO order:
+* download latest belgium osm: done
+* imposm latest: done
+* make an intersection with provinces OR regions: done
+* compute areas
+* make a dissolve: dont work
+* make script for the share.

@@ -148,6 +148,7 @@ landusages = Polygons(
             'scrub',
             'wetland',
             'water',
+            'heath',
         ),
         'highway': (
             'pedestrian',
