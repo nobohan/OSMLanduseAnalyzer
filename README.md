@@ -37,7 +37,7 @@ sudo service postgresql restart
 imposm --proj=EPSG:3857 --read belgium-latest.osm.bz2 -m imposm-mapping.py
 imposm -U osm -d osmlanduse -m imposm-mapping.py --write --optimize --deploy-production-tables
 
-To
+# To remove existing backup data
 imposm -d osmlanduse --remove-backup-tables
 
 
@@ -61,6 +61,10 @@ with different admin_level for
 
 After that, the layers were exported as geojson and saved as shp to be able to edit them. For unknown reason, the geojson was not editable in QGIS. Then, area of each features was computed. Some overlapping polygon (such as Province of Liège with and without the German community) were removed/clean.
 
+### Import these layers in postgresql
+ogr2ogr -f PostgreSQL PG:"dbname=osmlanduse user=osm password=osm host=localhost" -nlt POLYGON -a_srs EPSG:3857 BEprovince3857.shp
+
+
 ## 2) Geoprocessing
 
 ### 1) Prepare the layers
@@ -78,7 +82,15 @@ TODO: intersection by provinces: DONE
 TODO
 
 make a dissolved layer based on field "provinces" on the landuse_inter_BEprovinces
+1) make a dissolution with a PostGIS query:
 
+CREATE TABLE landuse_dissolve_extract AS
+  SELECT name,
+  	   ST_Multi(ST_Union(f.geometry)) as singlegeom
+  	 FROM landuse_extract As f
+  GROUP BY name
+
+2) Compute the area in QGIS
 
 #### Recompute polygon areas
 for both the dissolved and the intersect layers
