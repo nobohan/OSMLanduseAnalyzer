@@ -1,14 +1,24 @@
-# PostGIS statement
+# PostGIS queries used in this project and an idea of the processing time needed
+# ! This is not a script to execute, but just some backups of the queries that I tried/used!
 
-### 1) indexer
+### 1) index
 # on extract:
 CREATE INDEX osm_landusages_extract_gix ON landuse_extract USING GIST (geometry);
 --> 62 ms
 
 # on whole BE
 CREATE INDEX osm_landusages_gix ON osm_landusages USING GIST (geometry);
+# NB: imposm --optimize already make a spatial index of the db
 
-### 2) intersection
+### 2) Make Valid geometries
+## NB: osm_landusages_inter_beprovince was imported from the shp
+CREATE TABLE landuse_inter_province_valid AS
+SELECT iso3166_2, ST_MakeValid(wkb_geometry) As wkb_geometry
+FROM osm_landusages_inter_beprovince
+--> 1 min
+
+
+### 3) intersection
 # on extract:
 CREATE TABLE landuse_inter_provinces_extract As
 SELECT landuse_extract.id,
@@ -17,46 +27,37 @@ FROM landuse_extract, beprovince3857
 WHERE ST_Intersects(landuse_extract.geometry, beprovince3857.geometry)
 GROUP BY landuse_extract.id;
 
-#on whole belgium:
+# on whole BE:
 CREATE TABLE landuse_inter_provinces As
 SELECT osm_landusages.id,
        ST_COLLECT(ST_INTERSECTION(osm_landusages.geometry, beprovince3857.geometry))
-FROM osm_landusages, BE_provinces
+FROM osm_landusages, beprovince3857
 WHERE ST_Intersects(osm_landusages.geometry, beprovince3857.geometry)
 GROUP BY osm_landusages.id;
---> did not work because of invalid geometry combination
 
-### 3) Aggregate using ST_union - works
+### 4) Aggregate (dissolve) using ST_union by field
 # on extract:
 CREATE TABLE landuse_extract_dissolve_bytype AS
-  SELECT type,
+SELECT type,
   	   ST_Multi(ST_Union(f.geometry)) as singlegeom
-  	 FROM landuse_extract As f
+FROM landuse_extract As f
 GROUP BY type
 --> 4.4 seconds
---> 4.3 | 4.4 seconds after gist indexing --> no improvements. NB: there exist already an index on osm_landusages
-# NB: imposm --optimize already make a spatial index of the db
 
 # on whole Belgium
 CREATE TABLE landuse_dissolve_bytype AS
-  SELECT type,
-  	   ST_Multi(ST_Union(f.geometry)) as singlegeom
-  	 FROM osm_landusages As f
+SELECT type,
+  	 ST_Multi(ST_Union(f.geometry)) as singlegeom
+FROM osm_landusages As f
 GROUP BY type
 --> several hours (exact time unknown)
 
-## Aggregate to dissolve all - works!
+
+## 5) Aggregate to dissolve all
 CREATE TABLE landuse_dissolve AS
 SELECT ST_Multi(ST_Union(f.geometry)) as singlegeom
-	 FROM osm_landusages As f
+FROM osm_landusages As f
 
-##
-osm_landusages_inter_beprovince was imported from the shp
-
-CREATE TABLE landuse_inter_province_valid AS
-SELECT iso3166_2, ST_MakeValid(wkb_geometry) As wkb_geometry
-FROM osm_landusages_inter_beprovince
---> 1 min
 
 CREATE TABLE landuse_inter_province_dissolve_byprovince AS
   SELECT iso3166_2,
@@ -65,12 +66,10 @@ CREATE TABLE landuse_inter_province_dissolve_byprovince AS
 GROUP BY iso3166_2
 --> 1h29
 
-NB:
-ALTER TABLE BEprovince3857
-ALTER COLUMN geom TYPE geometry(MULTIPOLYGON, 3857) USING ST_Transform(ST_SetSRID(geom,4326),3857) ;
 
+## 6) Misc.
 
-error:
+## error that were manually corrected on osm_landusages:
 
 ERROR: GEOSUnaryUnion: TopologyException: Input geom 0 is invalid: Self-intersection at or near point 522661.83904841624 6600379.0647823587 at 522661.83904841624 6600379.0647823587
 SQL state: XX000
@@ -83,7 +82,6 @@ SQL state: XX000
 
 ERROR: GEOSUnaryUnion: TopologyException: Input geom 1 is invalid: Self-intersection at or near point 572745.59696506651 6634358.0706200358 at 572745.59696506651 6634358.0706200358
 SQL state: XX000
-
 
 ERROR: GEOSUnaryUnion: TopologyException: Input geom 0 is invalid: Self-intersection at or near point 463960.72992908116 6635048.4729057383 at 463960.72992908116 6635048.4729057383
 SQL state: XX000
@@ -112,8 +110,6 @@ NOTICE:  Self-intersection at or near point 463960.72992908116 6635048.472905738
 NOTICE:  Self-intersection at or near point 462556.7033913756 6634038.5143437367
 
 
-
-
 ### Aggregate using ST_collect:
 CREATE TABLE landuse_extract_dissolve_bycollect AS
 SELECT type, ST_Collect(f.geometry) as singlegeom
@@ -136,19 +132,10 @@ WHERE osm_landusages.geometry && ST_MakeEnvelope(5.2, 49.7, 5.4, 50, 4326);
 
 
 ## Errors when running ST_Union
-  ERROR:  GEOSUnaryUnion: TopologyException: Input geom 1 is invalid: Self-intersection at or near point 670749.43891915039 6484396.2533811396 at 670749.43891915039 6484396.2533811396
-  ********** Error **********
+ERROR:  GEOSUnaryUnion: TopologyException: Input geom 1 is invalid: Self-intersection at or near point 670749.43891915039 6484396.2533811396 at 670749.43891915039 6484396.2533811396
 
-  ERROR: GEOSUnaryUnion: TopologyException: Input geom 1 is invalid: Self-intersection at or near point 670749.43891915039 6484396.2533811396 at 670749.43891915039 6484396.2533811396
-  SQL state: XX000
-
-  --> Corrected
-
-  ERROR:  GEOSUnaryUnion: TopologyException: Input geom 1 is invalid: Self-intersection at or near point 475463.75814384432 6505254.259707856 at 475463.75814384432 6505254.259707856
-  ********** Error **********
-
-  ERROR: GEOSUnaryUnion: TopologyException: Input geom 1 is invalid: Self-intersection at or near point 475463.75814384432 6505254.259707856 at 475463.75814384432 6505254.259707856
-  SQL state: XX000
+ERROR: GEOSUnaryUnion: TopologyException: Input geom 1 is invalid: Self-intersection at or near point 475463.75814384432 6505254.259707856 at 475463.75814384432 6505254.259707856
+SQL state: XX000
 
 ERROR: GEOSUnaryUnion: TopologyException: Input geom 1 is invalid: Self-intersection at or near point 464652.71621046885 6512849.5294554401 at 464652.71621046885 6512849.5294554401
 SQL state: XX000
@@ -158,9 +145,3 @@ SQL state: XX000
 
 ERROR: GEOSUnaryUnion: TopologyException: Input geom 0 is invalid: Self-intersection at or near point 421953.18973654561 6521580.9262668965 at 421953.18973654561 6521580.9262668965
 SQL state: XX000
-
-
-### ST_UnaryUnion:
-  CREATE TABLE landuse_extract_dissolve_bystunaryunion AS
-    SELECT ST_UnaryUnion(geometry) AS geometry
-    FROM landuse_extract

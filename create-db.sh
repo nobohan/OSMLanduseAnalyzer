@@ -10,7 +10,6 @@ createdb -E UTF8 -O osm osmlanduse
 # Run some postgresql commands (-c) to the db 'osmlanduse' (-d)
 psql -d osmlanduse -c "alter user osm with password 'osm';"
 psql -d osmlanduse -c "create extension postgis;"
-psql -d osmlanduse -f /media/julien/data/Projets/Geomatique/OSM/Mapnik/venv/local/lib/python2.7/site-packages/imposm/900913.sql
 echo "ALTER TABLE geometry_columns OWNER TO osm;" | psql -d osmlanduse
 echo "ALTER TABLE spatial_ref_sys OWNER TO osm;" | psql -d osmlanduse
 echo "ALTER USER osm WITH PASSWORD 'osm';" |psql -d osmlanduse

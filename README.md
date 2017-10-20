@@ -1,48 +1,37 @@
 # OSMLanduseAnalyzer
 
+This small repository is about computing some basic statistics about OpenStreetMap (OSM) land-use coverage and share over a given region/country. This was made for Belgium, in the framework of a presentation at the FOSS4G.be conference, held in October 2017 in Brussels. The output are (1) the regional coverage of "land-use" features in OSM, namely the percentage of land-use area compared to total area and (2) the share of the land-use in different categories (e.g., farmland, residential, forest, ...)
 
-WORK/TODO
+! This repository is definitely not a push-button solution. I'm probably far the from the smartest solution for computing these basic stats but it worked for me. Note that the basic GIS operations involved in this project (intersection, dissolve, etc.) can be particularly tricky when dealing with OSM data because of the presence of topological errors and the large size of the layer (huge number of geometries).
 
-* Refine the custom mapping of landuse tags
-* Do some geoprocessing
-  * self-intersection: how is superimposed the landuse?
-
-* Compute statistics
-  * compute total landuse coverage at country / region / province levels
-    * compute sum of area - sum of area where there is self intersection
-      * see https://gis.stackexchange.com/questions/249934/get-intersections-of-polygons-in-same-layer-in-r-or-qgis
-    * NB: there are superposition: see example in Rulles with meadow Sizaire
-  * compute the share of landuse type
-  * compute part of landuse=forest | natural=wood with leaf_type & leaf_cycle information
-* render landuse in a webmap, or use OSMlanduse.org
+Author: Julien Minet, juminet@gmail.com
 
 # 1) Pre-processing
-## Custom mapping
 
-See the `imposm-mapping.py` file for knowing the which OSM tags are considered as land-use in this analysis.
-
-## Import OSM data using imposm
+## 1.1) Import OSM land-use data using imposm
 
 ### Create a database
-
 The instructions for creating the db are in create-db.sh.
 Run the following in a terminal to create this db:
 
-sudo su postgres
-sh ./create-db.sh
-exit
-sudo service postgresql restart
+`sudo su postgres`
+`sh ./create-db.sh`
+`exit`
+`sudo service postgresql restart`
+
+### Custom mapping
+OSM land-use data were imported into a postgresql database using `impsom` with a custom mapping of the tags. See the `imposm-mapping.py` file for knowing which OSM tags are considered as "land-use" in this analysis.
 
 ### Import OSM data into the database
-imposm --proj=EPSG:3857 --read belgium-latest.osm.bz2 -m imposm-mapping.py
-imposm -U osm -d osmlanduse -m imposm-mapping.py --write --optimize --deploy-production-tables
+`imposm --proj=EPSG:3857 --read belgium-latest.osm.bz2 -m imposm-mapping.py`
+`imposm -U osm -d osmlanduse -m imposm-mapping.py --write --optimize --deploy-production-tables`
 
-# To remove existing backup data
-imposm -d osmlanduse --remove-backup-tables
+### To remove existing backup data
+`imposm -d osmlanduse --remove-backup-tables`
 
 
-## Get some administrative boundaries for analysing the land-use
-
+## 1.2) Get some administrative boundaries for analysing the land-use
+### Overpass queries to get the boundary data
 Overpass queries to export country, regions and provinces administrative levels:
 ```
 [out:json][timeout:25];
@@ -62,53 +51,22 @@ with different admin_level for
 After that, the layers were exported as geojson and saved as shp to be able to edit them. For unknown reason, the geojson was not editable in QGIS. Then, area of each features was computed. Some overlapping polygon (such as Province of Liège with and without the German community) were removed/clean.
 
 ### Import these layers in postgresql
-ogr2ogr -f PostgreSQL PG:"dbname=osmlanduse user=osm password=osm host=localhost" -nlt POLYGON -a_srs EPSG:3857 BEprovince3857.shp
+`ogr2ogr -f PostgreSQL PG:"dbname=osmlanduse user=osm password=osm host=localhost" -nlt POLYGON -a_srs EPSG:3857 BEprovince3857.shp`
 
 
-## 2) Geoprocessing
+# 2) Geoprocessing
+## 2.1) Make an intersection of the layer
+Intersection of the whole layer osm_landusages with province, regions. Can be done using the QGIS Intersect tool or postGIS query (see `PostGIS.sql` for examples)
 
-### 1) Prepare the layers
-#### Make an intersection of the layer
-Intersection of the whole layer landusages with province, regions. Then, simply sum the area with filtering with right field
- * error: Input layer osm_landusages contains invalid geometries (feature 889179). Unable to complete intersection algorithm.
+## 2.2) Make a dissolve layer (for computing coverage)
+Dissolve the osm_landusages_inter_province layer by the province field.
 
---> This feature was a footway of about 2000 m². I've deleted it.
+## 2.3) Recompute polygon areas
+Compute the area of the dissolved layer for computing the coverage
 
-Intersection works. It took about one night of processing.
+# 3) Statistics
+## 3.1) Compute total coverage
+See the area of the dissolved layer and compare to the reference intersect layer area. 
 
-TODO: intersection by provinces: DONE
-
-#### Make a dissolve layer (for computing coverage)
-TODO
-
-make a dissolved layer based on field "provinces" on the landuse_inter_BEprovinces
-1) make a dissolution with a PostGIS query:
-
-CREATE TABLE landuse_dissolve_extract AS
-  SELECT name,
-  	   ST_Multi(ST_Union(f.geometry)) as singlegeom
-  	 FROM landuse_extract As f
-  GROUP BY name
-
-2) Compute the area in QGIS
-
-#### Recompute polygon areas
-for both the dissolved and the intersect layers
-TODO
-
-# 2) Total coverage
-
-Run the script OSMLanduseAnalyzer_byregions.py
-
-# 3) Share of land-use
-
-TODO: script OSMLanduseAnalyzer_share_byregions.py
-
-
-TODO order:
-* download latest belgium osm: done
-* imposm latest: done
-* make an intersection with provinces OR regions: done
-* compute areas
-* make a dissolve: dont work
-* make script for the share.
+## 3.2) Share of land-use
+Run the script OSMLanduseAnalyzer_share.py
