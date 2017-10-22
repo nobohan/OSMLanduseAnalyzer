@@ -40,52 +40,50 @@
     </section>
     <section style="height: 100%;top: 0;" data-transition="fade" data-background="#4d7e65">
      <h3>Why?</h3>
-     <img style="position: absolute; top: 10%; left: 0%; height: 46%;" src=img/50northspatial_blog_article.png>
-     <img style="position: absolute; top: 10%; right: 0%; height: 46%;" src=img/nobohan_blog_article.png>
+     <img style="position: absolute; top: 10%; left: 0%; height: 46%;" src="img/50northspatial_blog_article.png">
+     <img style="position: absolute; top: 10%; right: 0%; height: 46%;" src="img/nobohan_blog_article.png">
     </section>
     <section data-transition="fade" data-background="#4d7e65">
      <h3>Objectives</h3>
-       <ul>
-         <li>Quantitative assessment of land-use/land-cover mapping in OSM in Belgium</li>
-         <li>Discuss some cases</li>
-         <li>--> Some Belgian conventions on land-use mapping with OSM in Belgium</li>
+       <ul style="hline=2">
+         <li>1. Quantitative assessment of land-use/land-cover mapping in OSM in Belgium</li>
+         <li>2. Discuss some cases/issues</li>
+         <li>GOAL: Some Belgian conventions on land-use mapping with OSM in Belgium</li>
       </ul>
     </section>
-    <section data-transition="fade" data-background="#4d7e65">
+    <!--section data-transition="fade" data-background="#4d7e65">
      <h3>How land-use/land-cover is mapped in OSM?</h3>
      <ul>
       <li>by digitalization on aerial imagery, with user/terrain knowledge</li>
-      <li>by semi-automated import from other database (including Corine Land Cover)</li>
+      <li>by semi-automated import from other database (including Corine Land Cover) (but not so much in Belgium)</li>
      </ul>
-    </section>
+    </section-->
 
-    <!methods -->
+    <!--methods -->
     <section data-transition="fade" data-background="#b5533c">
-     <h1>Methodology</h1>
+     <h1>Quantitative assessment of land-use/land-cover mapping</h1>
     </section>
     <section data-transition="fade" data-background="#b5533c">
+     <h1><small>Quantitative assessment of land-use/land-cover mapping</small></h1>
      <h3>Methodology</h3>
-     <ul>
-      <li>Corine Land Cover data accessed <a target="_blank" href="http://www.eea.europa.eu/data-and-maps/data/corine-land-cover-2000-clc2000-seamless-vector-database-2">here</a></li>
-      <li>OSM data downloaded from <a target="_blank" href="http://overpass-turbo.eu/">overpass-turbo.eu</a></li>
-      <li>Clip the Corine Land Cover & OSM layers onto the province of Luxembourg</li>
-      <li>Make the intersection & symmetrical difference of the Corine Land Cover & OSM layers</li>
-      <li>Compute the areas of intersected polygons and sum of the areas that share the same attributes</li>
-      <li>Done with QGIS 2.8 & LibreOffice Calc</li>
-     </ul>
+       <h4>Flowchart</h4>
+       <img style="" src="img/osmlanduseanalyzer_flowchart.png">
     </section>
     <section data-transition="fade" data-background="#b5533c">
-     <h3>About the tags used for forest mapping in OSM</h3>
-     <span style="font-size:0.6em; text-align:left;">
-     <p><a target="_blank" href="http://wiki.openstreetmap.org/wiki/Tag:landuse%3Dforest">landuse=forest</a> Most used!</p>
-     <p><a target="_blank" href="http://wiki.openstreetmap.org/wiki/Tag:natural%3Dwood">natural=wood</a> Not used a lot</p>
-     <p><a target="_blank" href="http://wiki.openstreetmap.org/wiki/Key:wood">wood=deciduous/coniferous/mixed</a> ! Deprecated ! wood=* is now deprecated and is replaced by leaf_type=* and leaf_cycle*. See the discussion and the vote on the OSM wiki <a target="_blank" href="http://wiki.openstreetmap.org/wiki/Proposed_features/leaftype">here</a>.</p>
-     <p><a target="_blank" href="http://wiki.openstreetmap.org/wiki/Key:leaf_type">leaf_type=broadleaved/needleleaved/mixed</a> describes the type of leaves for forest vegetation</p>
-     <p><a target="_blank" href="http://wiki.openstreetmap.org/wiki/Key:leaf_cycle">leaf_cycle=deciduous/evergreen/mixed</a> describes the phenology of plant species in forests</p>
-     <img src=img/broadleaved.png>
-     <img src=img/needleleaved.png>
-     <img src=img/mixed.png width="230px">
-     </span>
+     <h1><small>Quantitative assessment of land-use/land-cover mapping</small></h1>
+     <h3>Methodology</h3>
+       <h4>Selection of tags (key=value) for "land-use"</h4>
+       <p>Tag list inspired by the "land-use" preset of OSM-Bright</p>
+       <pre><code>
+waterway=riverbank;
+landuse=basin,reservoir,park,forest,residential,retail,commercial,industrial,railway,cemetery,grass,farmyard,farm,farmland,wood,meadow,village_green,recreation_ground,allotments,quarry, orchard,vineyard,greenhouse_horticulture;
+leisure=park,garden,playground,golf_course,sports_centre,pitch,stadium,common,nature_reserve;
+natural=wood,land,scrub,wetland,water,heath,grassland; 
+highway=pedestrian,footway;
+amenity=university,school,college,library,fuel,parking,cinema,theatre,place_of_worship,hospital;
+place=island;
+aeroway=aerodrome,helipad,apron
+      </code></pre>
     </section>
     <section data-transition="fade" data-background="#b5533c">
      <h3>Overpass-turbo queries</h3>
@@ -134,6 +132,9 @@ out skel qt;
       <li class="fragment">50.5 % of forested areas in OSM are only tagged with landuse=forest OR natural=wood without trees and/or phenology information.
       </li>
      </ul>
+     <img src=img/broadleaved.png>
+     <img src=img/needleleaved.png>
+     <img src=img/mixed.png width="230px">
     </section>
     <section data-transition="fade">
      <h3>Confusion matrix (% of area)</h3>

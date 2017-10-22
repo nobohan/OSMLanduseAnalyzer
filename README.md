@@ -24,7 +24,7 @@ OSM land-use data were imported into a postgresql database using `impsom` with a
 
 ### Import OSM data into the database
 `imposm --proj=EPSG:3857 --read belgium-latest.osm.bz2 -m imposm-mapping.py`
-`imposm -U osm -d osmlanduse -m imposm-mapping.py --write --optimize --deploy-production-tables`
+`imposm -U osm -d osmlanduse2 -m imposm-mapping.py --write --optimize --deploy-production-tables`
 
 ### To remove existing backup data
 `imposm -d osmlanduse --remove-backup-tables`
@@ -66,7 +66,7 @@ Compute the area of the dissolved layer for computing the coverage
 
 # 3) Statistics
 ## 3.1) Compute total coverage
-See the area of the dissolved layer and compare to the reference intersect layer area. 
+See the area of the dissolved layer and compare to the reference intersect layer area.
 
 ## 3.2) Share of land-use
 Run the script OSMLanduseAnalyzer_share.py
