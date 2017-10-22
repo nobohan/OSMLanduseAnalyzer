@@ -12,6 +12,8 @@
   <link rel="stylesheet" href="css/theme/black.css" id="theme">
   <!-- Code syntax highlighting -->
   <link rel="stylesheet" href="lib/css/zenburn.css">
+  <!--  custom css -->
+  <link rel="stylesheet" href="css/custom.css">
   <!-- Printing and PDF exports -->
   <script>
    var link = document.createElement( 'link' );
@@ -45,7 +47,7 @@
     </section>
     <section data-transition="fade" data-background="#4d7e65">
      <h3>Objectives</h3>
-       <ul style="hline=2">
+       <ul style="line-height:2">
          <li>1. Quantitative assessment of land-use/land-cover mapping in OSM in Belgium</li>
          <li>2. Discuss some cases/issues</li>
          <li>GOAL: Some Belgian conventions on land-use mapping with OSM in Belgium</li>
@@ -64,13 +66,13 @@
      <h1>Quantitative assessment of land-use/land-cover mapping</h1>
     </section>
     <section data-transition="fade" data-background="#b5533c">
-     <h1><small>Quantitative assessment of land-use/land-cover mapping</small></h1>
+     <h1 class="running-h1">[Quantitative assessment of land-use/land-cover mapping]</h1>
      <h3>Methodology</h3>
        <h4>Flowchart</h4>
        <img style="" src="img/osmlanduseanalyzer_flowchart.png">
     </section>
     <section data-transition="fade" data-background="#b5533c">
-     <h1><small>Quantitative assessment of land-use/land-cover mapping</small></h1>
+     <h1 class="running-h1">[Quantitative assessment of land-use/land-cover mapping]</h1>
      <h3>Methodology</h3>
        <h4>Selection of tags (key=value) for "land-use"</h4>
        <p>Tag list inspired by the "land-use" preset of OSM-Bright</p>
@@ -78,7 +80,7 @@
 waterway=riverbank;
 landuse=basin,reservoir,park,forest,residential,retail,commercial,industrial,railway,cemetery,grass,farmyard,farm,farmland,wood,meadow,village_green,recreation_ground,allotments,quarry, orchard,vineyard,greenhouse_horticulture;
 leisure=park,garden,playground,golf_course,sports_centre,pitch,stadium,common,nature_reserve;
-natural=wood,land,scrub,wetland,water,heath,grassland; 
+natural=wood,land,scrub,wetland,water,heath,grassland;
 highway=pedestrian,footway;
 amenity=university,school,college,library,fuel,parking,cinema,theatre,place_of_worship,hospital;
 place=island;
@@ -86,35 +88,7 @@ aeroway=aerodrome,helipad,apron
       </code></pre>
     </section>
     <section data-transition="fade" data-background="#b5533c">
-     <h3>Overpass-turbo queries</h3>
-
-     <small><pre><code>[out:json][timeout:25];
-// fetch area “Luxembourg” to search in
-area['name:fr'='Luxembourg'][admin_level=6]->.searchArea;
-// gather results
-(
-  // query part for: “forest”
-  way["landuse"="forest"](area.searchArea);
-  relation["landuse"="forest"](area.searchArea);
-
-  way["natural"="wood"](area.searchArea);
-  relation["natural"="wood"](area.searchArea);
-
-  way["leaf_type"](area.searchArea);
-  relation["leaf_type"](area.searchArea);
-
-  way["leaf_cycle"](area.searchArea);
-  relation["leaf_cycle"](area.searchArea);
-
-  way["wood"](area.searchArea);
-  relation["wood"](area.searchArea);
-
-);
-// print results
-out geom;
->;
-out skel qt;
-    </code></pre></small>
+     <h1 class="running-h1">[Quantitative assessment of land-use/land-cover mapping]</h1>
     </section>
     <section data-transition="fade">
      <h1>Results</h1>
@@ -180,8 +154,16 @@ out skel qt;
     </section>
 
     <section data-transition="fade" data-background="#4d7e65">
-     <h3>Thanks for your attention</h3>
-     <p><i>I'm open for collaborations on OpenStreetMap research!</i></p>
+      <h3>References</h3>
+      <p>Some scientific articles on the issue:</p>
+       <ul>
+       <li>Assessment of land-use classification and accuracy in OSM in Vienna, Austria : Arsanjani et al., <i>Toward mapping land-use patterns from volunteered geographic
+ information</i>, International Journal of Geographical Information Science, 2013 <a target="_blank" href="http://www.geog.uni-heidelberg.de/md/chemgeo/geog/lehrstuehle/gis/jokar_landusepatterns_vgi.pdf">[link]</a></li>
+       <li>Comparison of OSM against Corine Land Cover in Portugal : Estima & Painho, <i>Exploratory analysis of OpenStreetMap for land use
+ classification</i>, 2013 <a target="_blank" href="https://run.unl.pt/bitstream/10362/13603/1/Estima_Painho_2013a.pdf">[link]</a></li>
+       <li>Accuracy of natural features in OSM (several countries): Winstanley, <i>A study of data representation of natural features in OpenStreetMap</i>, Proceedings of GIScience, 2010 <a target="_blank" href="http://www.researchgate.net/profile/A_Winstanley/publication/229009232_A_study_of_data_representation_of_natural_features_in_openstreetmap/links/004635226deb44cf42000000.pdf">[link]</a></li>
+       <li> Production of a land-cover map from OSM and automatic gap-filling with remote sensing data: Schultz et al., <i>Open land cover from OpenStreetMap and remote sensing</i>, International Journal of Applied Earth Observation and Geoinformation, 2017. <a target="_blank" href="http://www.sciencedirect.com/science/article/pii/S0303243417301605">[link]</a></li>
+      </ul>
     </section>
    </div>
 
