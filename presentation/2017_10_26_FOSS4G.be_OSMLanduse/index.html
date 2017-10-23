@@ -41,9 +41,13 @@
      <p><small>This presentation and scripts are available on <a target="_blank" href="https://github.com/nobohan/OSMLanduseAnalyzer">github.com/nobohan/OSMLanduseAnalyzer</a>.</small></p>
     </section>
     <section style="height: 100%;top: 0;" data-transition="fade" data-background="#4d7e65">
-     <h3>Why?</h3>
-     <img style="position: absolute; top: 10%; left: 0%; height: 46%;" src="img/50northspatial_blog_article.png">
-     <img style="position: absolute; top: 10%; right: 0%; height: 46%;" src="img/nobohan_blog_article.png">
+      <h3>Why?</h3>
+      <a target="_blank" href="http://www.50northspatial.org/map-nature-openstreetmap-approaches-issues-key-tags/">
+        <img style="position: absolute; top: 10%; left: 0%; height: 46%;" src="img/50northspatial_blog_article.png">
+      </a>
+      <a target="_blank" href="http://www.nobohan.be/2017/04/20/landuse-osm-belgium/">
+        <img style="position: absolute; top: 10%; right: 0%; height: 46%;" src="img/nobohan_blog_article.png">
+      </a>
     </section>
     <section data-transition="fade" data-background="#4d7e65">
      <h3>Objectives</h3>
@@ -61,15 +65,16 @@
      </ul>
     </section-->
 
-    <!--methods -->
     <section data-transition="fade" data-background="#b5533c">
      <h1>Quantitative assessment of land-use/land-cover mapping</h1>
     </section>
+
+    <!--methods -->
     <section data-transition="fade" data-background="#b5533c">
-     <h1 class="running-h1">[Quantitative assessment of land-use/land-cover mapping]</h1>
-     <h3>Methodology</h3>
-       <h4>Flowchart</h4>
-       <img style="" src="img/osmlanduseanalyzer_flowchart.png">
+      <h1 class="running-h1">[Quantitative assessment of land-use/land-cover mapping]</h1>
+      <h3>Methodology</h3>
+      <img style="" src="img/osmlanduseanalyzer_flowchart.png">
+      <p>OSM data was download from geofabrik on the 10/10/2017.</p>
     </section>
     <section data-transition="fade" data-background="#b5533c">
      <h1 class="running-h1">[Quantitative assessment of land-use/land-cover mapping]</h1>
@@ -78,7 +83,7 @@
        <p>Tag list inspired by the "land-use" preset of OSM-Bright</p>
        <pre><code>
 waterway=riverbank;
-landuse=basin,reservoir,park,forest,residential,retail,commercial,industrial,railway,cemetery,grass,farmyard,farm,farmland,wood,meadow,village_green,recreation_ground,allotments,quarry, orchard,vineyard,greenhouse_horticulture;
+landuse=basin,reservoir,park,forest,residential,retail,commercial,industrial,railway,cemetery,grass,farmyard,farm,farmland,wood,meadow,village_green,recreation_ground,allotments,quarry,orchard,vineyard,greenhouse_horticulture;
 leisure=park,garden,playground,golf_course,sports_centre,pitch,stadium,common,nature_reserve;
 natural=wood,land,scrub,wetland,water,heath,grassland;
 highway=pedestrian,footway;
@@ -87,68 +92,123 @@ place=island;
 aeroway=aerodrome,helipad,apron
       </code></pre>
     </section>
+
+    <!-- RESULTS -->
     <section data-transition="fade" data-background="#b5533c">
-     <h1 class="running-h1">[Quantitative assessment of land-use/land-cover mapping]</h1>
+      <h1 class="running-h1">[Quantitative assessment of land-use/land-cover mapping]</h1>
+      <h3>Results</h3>
+      <h4>Global share of "land-use" tags in Belgium</h4>
+      <img style="" src="img/coverage_barchart.png">
+      <p>Note that many "land-use" polygons superimpose to each other.</p>
     </section>
-    <section data-transition="fade">
-     <h1>Results</h1>
+    <section data-transition="fade" data-background="#b5533c">
+      <h1 class="running-h1">[Quantitative assessment of land-use/land-cover mapping]</h1>
+      <h3>Results</h3>
+      <h4>Share of agricultural "land-use" tags in Belgium</h4>
+      <img style="" src="img/coverage_barchart.png">
     </section>
-    <section data-transition="fade">
-     <h3>Frequency of OSM tags for forest areas in province of Lux.</h3>
-     <p>Forested areas in OSM were defined as the polygons (way + relation) that have <i>landuse=forest</i> or <i>natural=wood</i>.
-     <ul>
-      <li class="fragment">23.6 % of forested areas in OSM are still tagged with the deprecated wood=deciduous/coniferous/mixed!
-      </li>
-      <li class="fragment">27.5 % of forested areas in OSM only are tagged with leaf_type=broadleaved/needleleaved/mixed
-      </li>
-      <li class="fragment">19.0 % of forested areas in OSM only are tagged with leaf_cycle=deciduous/evergreen/mixed
-      </li>
-      <li class="fragment">50.5 % of forested areas in OSM are only tagged with landuse=forest OR natural=wood without trees and/or phenology information.
-      </li>
-     </ul>
-     <img src=img/broadleaved.png>
-     <img src=img/needleleaved.png>
-     <img src=img/mixed.png width="230px">
+    <section data-transition="fade" data-background="#b5533c">
+      <h1 class="running-h1">[Quantitative assessment of land-use/land-cover mapping]</h1>
+      <h3>Results</h3>
+      <h4>Part of forested "land-use" that is defined by leaf_type|leaf_cycle in Belgium</h4>
+      <img style="" src="img/coverage_barchart.png">
+      <p>The deprecated `wood=*` tags are not considered here.</p>
+      <img src=img/broadleaved.png>
+      <img src=img/needleleaved.png>
+      <img src=img/mixed.png width="230px">
     </section>
-    <section data-transition="fade">
-     <h3>Confusion matrix (% of area)</h3>
-     <img src=img/ConfusionMatrix.png height=73%>
+    <section data-transition="fade" data-background="#b5533c">
+      <h1 class="running-h1">[Quantitative assessment of land-use/land-cover mapping]</h1>
+      <h3>Results</h3>
+      <h4>Total coverage of "land-use" tags by provinces in Belgium</h4>
+      <img style="" src="img/coverage_barchart.png">
     </section>
+
+    <!-- LAND-USE MAPPING ISSUES IN OSM -->
     <section data-transition="fade">
-     <h3>Map</h3>
-     <a target="_blank" href="webmap/map.html">Comparison map</a>
+     <h1>OSM land-use mapping issues</h1>
     </section>
 
     <section data-transition="fade">
-     <h3>Data characteristics</h3>
-     <p>While Corine Land Cover has a minimal description threshold of 25 ha, much smaller polygons (< 25 ha) do exist in OSM.</p>
+      <section>
+        <h1 class="running-h1">[OSM land-use mapping issues]</h1>
+        <h3>Should we merge land-use nodes to other (linear) features?</h3>
+        <img style="" src="img/issue-merge-node.png">
+        <p>See this discussion https://help.openstreetmap.org/questions/17501/when-mapping-polygons-surrounded-by-streets-should-they-share-nodes-or-be-traced-separately on the OSM forum</p>
+      </section>
+      <section>
+        <p>NO</p>
+        <table>
+          <tr>
+            <th>PROS</th>
+            <th>CONS</th>
+          </tr>
+          <tr>
+            <td>
+              <p>This allow more features to be mapped in the future (hedges, ditches, ...)</p>
+              <p>Geographic features are digitalized with keeping their real ground footprint</p>
+            </td>
+            <td>
+              <p>The "OSM land-use" database is not continuous</p>
+            </td>
+          </tr>
+        </table>
+      </section>
     </section>
+
     <section data-transition="fade">
-     <h3>Key results:</h3>
-     <img  src=img/ConfusionMatrix.png height="280px">
-     <ul>
-      <li class="fragment">Poor matching of OSM and Corine Land Cover classes
-      </li>
-      <li class="fragment">About half of forest area in OSM is tagged with landuse=forest / natural=wood only (no class description)
-      </li>
-      <li class="fragment">The mixed forest class (i.e., "313" in Corine Land Cover and wood/leaf_type/leaf_cycle=mixed) is often used as a "catch-all" class!
-      <li class="fragment">Comparison OSM vs Corine Land Cover: Some OSM data were actually imported from Corine Land Cover! OSM-France even did massive imports of Corine Land Cover into OSM.
-      </li>
-     </ul>
+      <h1 class="running-h1">[OSM land-use mapping issues]</h1>
+      <h3>Should we superimpose "land-use" features?</h3>
+      <img style="" src="img/issue-trees-in-water.png">
+      <p>See this discussion on the OSM forum?</p>https://help.openstreetmap.org/questions/17874/overlapping-land-use-cf-residential-and-forest
+      <p>Why not? (it depends)</p>
+    </section>
+
+    <section data-transition="fade">
+      <h1 class="running-h1">[OSM land-use mapping issues]</h1>
+      <h3>`natural=wood` vs 'landuse=forest' for mapping forests in Belgium</h3>
+      <img style="" src="img/forest.jpg">
+      <p>See this discussion on the OSM forum?</p>
+      <p>`landuse=forest`</p>
+    </section>
+
+    <section data-transition="fade">
+      <section>
+        <h1 class="running-h1">[OSM land-use mapping issues]</h1>
+        <h3>`landuse=farmland` vs 'landuse=meadow' for mapping meadows in Belgium</h3>
+        <img style="" src="img/meadow.jpg">
+        <p>Arable land: landuse=farmland + crop=*</p>
+        <p>Grazed meadows: landuse=meadow + meadow=agricultural + animal=yes</p>
+        <p>Hay meadows: landuse=meadow + meadow=agricultural + crop=grass</p>
+      </section>
+      <section>
+        <img src="img/issue-farmland-meadow.png">
+      </section>
+    </section>
+
+    <section data-transition="fade">
+      <h1 class="running-h1">[OSM land-use mapping issues]</h1>
+      <h3>Better describe leaf_type | leaf_cycle in forests?</h3>
+      <img style="" src="img/issue-forest-type.png">
+    </section>
+
+    <section data-transition="fade">
+      <h1 class="running-h1">[OSM land-use mapping issues]</h1>
+      <h3>Confusion between land-use & land-cover in OSM</h3>
+      <p class="align-left">e.g., landuse=grass</p>
+      <p class="align-left">landcover=* tags are not rendered</p>
+      <p class="align-left">natural=* tags are often pure land-use (and not natural features, at least in Belgium).</p>
     </section>
 
     <section data-transition="fade" data-background="#4d7e65">
-     <h3>Perspectives: OSM land-use information in research</h3>
+     <h3>Perspectives: OSM land-use/land-cover database</h3>
      <ul>
-      <li class="fragment" >Forest type mapping, tree composition: toward up-to-date information
-      </li>
       <li class="fragment">Collaboration between crowdsourced geodata collection and professional land-use mapping project/agencies would be welcome.
       </li>
       <li class="fragment">At the long term, frequently updated information could be used for historical reconstruction of land-use --> In the future, would it be possible to use OSM to study land-use/land-cover changes?
       </li>
-      <li class="fragment">Farmsourcing / agriculture mapping: An agriculture map can be derived from OSM data: e.g., <a target="_blank" href="http://www.itoworld.com/map/133">the ITO agriculture map</a> that is using the tags landuse=farm, farmland, greenhouse_horticulture, meadow, orchard, etc. The tag "crop" describing the type of the crop (wheat, corn, etc.) also exists. Yearly updated information is needed!
-      </li>
-      <li class="fragment">Easy/open access data means widely used data: e.g., see GoogleMaps imagery.
+      <li class="fragment">Use OSM as an auxilliary data for updating land-use/land-cover maps. See the research project <a target="_blank" href="http://www.landsense.eu/">Landsense.eu</a></li>
+      <li class="fragment">In 20 years, OSM as an historic db for land-use/land-cover changes
       </li>
      </ul>
     </section>
