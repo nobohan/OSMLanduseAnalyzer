@@ -1,10 +1,8 @@
 ### SHARE of landuse
 
 ## Select the layers by name
-### Use the intersect layer to get rid of polygons outside Belgium
 landuse = QgsMapLayerRegistry.instance().mapLayersByName("osm_landusages2")[0]
 
-# Select the landuse layer in QGIS toc and then run:
 area_total = 0
 area_forest = 0
 area_meadow = 0
@@ -25,6 +23,10 @@ area_forest_no_type = 0
 
 area_urban = 0
 area_water = 0
+area_industrial = 0
+
+# value taken from the coverage layer, ie, the fully dissolved layer
+area_coverage = 24425865669.5
 
 for f in landuse.getFeatures():
   # sum all areas
@@ -54,28 +56,31 @@ for f in landuse.getFeatures():
      area_farm = area_farm + f['area']
   if f['type'] == "farmland":
      area_farmland = area_farmland + f['area']
-  if f['type'] == "farmyard":
-     area_farmyard = area_farmyard + f['area']
   if f['type'] == "orchard":
      area_orchard = area_orchard + f['area']
   if f['type'] == "meadow":
      area_meadow = area_meadow + f['area']
 
-  # Urban areas TODO: complete...
-  if f['type'] == "residential":
-     area_urban = area_urban + f['area']
+  # Urban areas
+  if f['type'] == "residential" or f['type'] == "farmyard" or f['type'] == "cemetery"  or f['type'] == "college" or f['type'] == "commercial" or f['type'] == "fuel"  or f['type'] == "garden" or f['type'] == "hospital"  or f['type'] == "library"  or f['type'] == "parking"  or f['type'] == "park"  or f['type'] == "pedestrian"  or f['type'] == "pitch"  or f['type'] == "place_of_worship"  or f['type'] == "playground"  or f['type'] == "school"  or f['type'] == "scrub"  or f['type'] == "sports_centre"  or f['type'] == "stadium"  or f['type'] == "theatre"  or f['type'] == "university"  or f['type'] == "recreation_ground"  or f['type'] == "retail"  or f['type'] == "zoo":
+      area_urban = area_urban + f['area']
+
+  if f['type'] == "industrial":
+      area_industrial = area_industrial + f['area']
 
   # Water areas
-  if f['type'] == "water":
+  if f['type'] == "water" or f['type'] == "riverbank":
      area_water = area_water + f['area']
 
-area_agricultural = area_farm + area_farmland + area_farmyard + area_orchard + area_meadow
+area_agricultural = area_farm + area_farmland + area_orchard + area_meadow
 
 
 # Landuse share results
-print 'forest : ' + str(area_forest/area_total)
-print 'urban : ' + str(area_urban/area_total)
-print 'agri : ' + str(area_agricultural/area_total)
+print 'agri : ' + str(area_agricultural/area_coverage)
+print 'forest : ' + str(area_forest/area_coverage)
+print 'urban : ' + str(area_urban/area_coverage)
+print 'industrial: ' + str(area_industrial/area_coverage)
+print 'water : ' + str(area_water/area_coverage)
 
 # Type of forest
 print 'broadleaved : ' + str(area_forest_bl/area_forest)
@@ -89,6 +94,5 @@ print 'no forest type :' + str(area_forest_no_type/area_forest)
 # Type of agricultural land
 print 'farm : ' + str(area_farm/area_agricultural)
 print 'farmland : ' + str(area_farmland/area_agricultural)
-print 'farmyard : ' + str(area_farmyard/area_agricultural)
 print 'meadow : ' + str(area_meadow/area_agricultural)
 print 'orchard : ' + str(area_orchard/area_agricultural)

@@ -42,12 +42,10 @@
     </section>
     <section style="height: 100%;top: 0;" data-transition="fade" data-background="#4d7e65">
       <h3>Why?</h3>
-      <a target="_blank" href="http://www.50northspatial.org/map-nature-openstreetmap-approaches-issues-key-tags/">
-        <img style="position: absolute; top: 10%; left: 0%; height: 46%;" src="img/50northspatial_blog_article.png">
-      </a>
-      <a target="_blank" href="http://www.nobohan.be/2017/04/20/landuse-osm-belgium/">
-        <img style="position: absolute; top: 10%; right: 0%; height: 46%;" src="img/nobohan_blog_article.png">
-      </a>
+      <img style="position: absolute; top: 10%; left: 0%; height: 46%;" src="img/50northspatial_blog_article.png">
+      <a style=" margin-left: 22%;" target="_blank" href="http://www.50northspatial.org/map-nature-openstreetmap-approaches-issues-key-tags/">link</a>
+      <img style="position: absolute; top: 10%; right: 0%; height: 46%;" src="img/nobohan_blog_article.png">
+      <a style="margin-right: 22%; margin-left: 22%;" target="_blank" href="http://www.nobohan.be/2017/04/20/landuse-osm-belgium/">link</a>
     </section>
     <section data-transition="fade" data-background="#4d7e65">
      <h3>Objectives</h3>
@@ -73,7 +71,7 @@
     <section data-transition="fade" data-background="#b5533c">
       <h1 class="running-h1">[Quantitative assessment of land-use/land-cover mapping]</h1>
       <h3>Methodology</h3>
-      <img style="" src="img/osmlanduseanalyzer_flowchart.png">
+      <img style="" height="400px" src="img/osmlanduseanalyzer_flowchart.png">
       <p>OSM data was download from geofabrik on the 10/10/2017.</p>
     </section>
     <section data-transition="fade" data-background="#b5533c">
@@ -95,33 +93,38 @@ aeroway=aerodrome,helipad,apron
 
     <!-- RESULTS -->
     <section data-transition="fade" data-background="#b5533c">
-      <h1 class="running-h1">[Quantitative assessment of land-use/land-cover mapping]</h1>
-      <h3>Results</h3>
-      <h4>Global share of "land-use" tags in Belgium</h4>
-      <img style="" src="img/coverage_barchart.png">
-      <p>Note that many "land-use" polygons superimpose to each other.</p>
+      <section data-transition="fade" data-background="#b5533c">
+        <h1 class="running-h1">[Quantitative assessment of land-use/land-cover mapping]</h1>
+        <h3>Results</h3>
+        <h4>Global share of "land-use" tags in Belgium</h4>
+        <img style="" height="400px" src="img/landuse_share.png">
+        <p>Note that many "land-use" polygons superimpose to each other. Sum of classes > 100%!</p>
+      </section>
+      <section data-transition="fade" data-background="#b5533c">
+        <h1 class="running-h1">[Quantitative assessment of land-use/land-cover mapping]</h1>
+        <h3>Results</h3>
+        <h4>Share of some (not all) land-use class in Belgium in CorineLandCover</h4>
+        <img style="" height="400px" src="img/landuse_share_clc.png">
+      </section>
     </section>
     <section data-transition="fade" data-background="#b5533c">
       <h1 class="running-h1">[Quantitative assessment of land-use/land-cover mapping]</h1>
       <h3>Results</h3>
       <h4>Share of agricultural "land-use" tags in Belgium</h4>
-      <img style="" src="img/coverage_barchart.png">
+      <img style="" height="400px" src="img/landuse_share_agri.png">
     </section>
     <section data-transition="fade" data-background="#b5533c">
       <h1 class="running-h1">[Quantitative assessment of land-use/land-cover mapping]</h1>
       <h3>Results</h3>
       <h4>Part of forested "land-use" that is defined by leaf_type|leaf_cycle in Belgium</h4>
-      <img style="" src="img/coverage_barchart.png">
+      <img style="" height="400px" src="img/landuse_share_forest.png">
       <p>The deprecated `wood=*` tags are not considered here.</p>
-      <img src=img/broadleaved.png>
-      <img src=img/needleleaved.png>
-      <img src=img/mixed.png width="230px">
     </section>
     <section data-transition="fade" data-background="#b5533c">
       <h1 class="running-h1">[Quantitative assessment of land-use/land-cover mapping]</h1>
       <h3>Results</h3>
       <h4>Total coverage of "land-use" tags by provinces in Belgium</h4>
-      <img style="" src="img/coverage_barchart.png">
+      <img style="" height="400px" src="img/coverage_barchart.png">
     </section>
 
     <!-- LAND-USE MAPPING ISSUES IN OSM -->
@@ -132,12 +135,12 @@ aeroway=aerodrome,helipad,apron
     <section data-transition="fade">
       <section>
         <h1 class="running-h1">[OSM land-use mapping issues]</h1>
-        <h3>Should we merge land-use nodes to other (linear) features?</h3>
-        <img style="" src="img/issue-merge-node.png">
-        <p>See this discussion https://help.openstreetmap.org/questions/17501/when-mapping-polygons-surrounded-by-streets-should-they-share-nodes-or-be-traced-separately on the OSM forum</p>
+        <h3>Should land-use nodes be shared with nodes of adjacent (linear) features?</h3>
+        <img style="" src="img/issue-share-nodes.png">
+        <p>See this <a target="_blank" href="https://help.openstreetmap.org/questions/17501/when-mapping-polygons-surrounded-by-streets-should-they-share-nodes-or-be-traced-separately">discussion</a> on the OSM forum</p>
       </section>
       <section>
-        <p>NO</p>
+        <p>--> We should not</p>
         <table>
           <tr>
             <th>PROS</th>
@@ -160,28 +163,33 @@ aeroway=aerodrome,helipad,apron
       <h1 class="running-h1">[OSM land-use mapping issues]</h1>
       <h3>Should we superimpose "land-use" features?</h3>
       <img style="" src="img/issue-trees-in-water.png">
-      <p>See this discussion on the OSM forum?</p>https://help.openstreetmap.org/questions/17874/overlapping-land-use-cf-residential-and-forest
-      <p>Why not? (it depends)</p>
+      <p>See this <a target="_blank" href="https://help.openstreetmap.org/questions/17874/overlapping-land-use-cf-residential-and-forest" >discussion</a> on the OSM forum.</p>
+      <p>--> Why not? (it depends)</p>
     </section>
 
     <section data-transition="fade">
       <h1 class="running-h1">[OSM land-use mapping issues]</h1>
-      <h3>`natural=wood` vs 'landuse=forest' for mapping forests in Belgium</h3>
-      <img style="" src="img/forest.jpg">
+      <h3><code class="code-highlight">natural=wood</code> vs <code class="code-highlight">landuse=forest</code> for mapping forests in Belgium</h3>
+      <img height="400px" style="" src="img/forest.jpg">
       <p>See this discussion on the OSM forum?</p>
-      <p>`landuse=forest`</p>
+      <p>--> <code class="code-highlight">landuse=forest</code></p>
     </section>
 
     <section data-transition="fade">
       <section>
         <h1 class="running-h1">[OSM land-use mapping issues]</h1>
-        <h3>`landuse=farmland` vs 'landuse=meadow' for mapping meadows in Belgium</h3>
-        <img style="" src="img/meadow.jpg">
-        <p>Arable land: landuse=farmland + crop=*</p>
-        <p>Grazed meadows: landuse=meadow + meadow=agricultural + animal=yes</p>
-        <p>Hay meadows: landuse=meadow + meadow=agricultural + crop=grass</p>
+        <h3><code class="code-highlight">landuse=farmland</code> vs
+          <code class="code-highlight">landuse=meadow</code>
+           for mapping meadows in Belgium</h3>
+        <img height="350px" style="" src="img/meadow.jpg">
+        <small>
+          <p>Arable land: landuse=farmland + crop=*</p>
+          <p>Grazed meadows: landuse=meadow + meadow=agricultural + animal=yes</p>
+          <p>Hay meadows: landuse=meadow + meadow=agricultural + crop=grass</p>
+        </small>
       </section>
       <section>
+        <p>These tags are often (unappropriately) mixed up!</p>
         <img src="img/issue-farmland-meadow.png">
       </section>
     </section>
@@ -190,6 +198,7 @@ aeroway=aerodrome,helipad,apron
       <h1 class="running-h1">[OSM land-use mapping issues]</h1>
       <h3>Better describe leaf_type | leaf_cycle in forests?</h3>
       <img style="" src="img/issue-forest-type.png">
+      <p>Note that forests are rendered by "leaf_type" since the last carto-osm update in August 2017</p>
     </section>
 
     <section data-transition="fade">
@@ -207,9 +216,9 @@ aeroway=aerodrome,helipad,apron
       </li>
       <li class="fragment">At the long term, frequently updated information could be used for historical reconstruction of land-use --> In the future, would it be possible to use OSM to study land-use/land-cover changes?
       </li>
-      <li class="fragment">Use OSM as an auxilliary data for updating land-use/land-cover maps. See the research project <a target="_blank" href="http://www.landsense.eu/">Landsense.eu</a></li>
-      <li class="fragment">In 20 years, OSM as an historic db for land-use/land-cover changes
+      <li class="fragment">Use OSM as an auxilliary data for updating land-use/land-cover maps. See the research project <a target="_blank" href="http://www.landsense.eu/">Landsense.eu</a>
       </li>
+      <li class="fragment">My opinion: OSM as it is not a land-use/land-cover map and should not become one.</li>
      </ul>
     </section>
 

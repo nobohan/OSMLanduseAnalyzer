@@ -55,7 +55,9 @@ body {
 }
 
 .reveal h4 {
-  font-size: 1em; }
+  font-size: 0.75em;
+  text-transform: none;
+}
 
 .reveal h1 {
   text-shadow: none; }
