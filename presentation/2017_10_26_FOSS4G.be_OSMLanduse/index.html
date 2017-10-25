@@ -72,7 +72,7 @@
       <h1 class="running-h1">[Quantitative assessment of land-use/land-cover mapping]</h1>
       <h3>Methodology</h3>
       <img style="" height="400px" src="img/osmlanduseanalyzer_flowchart.png">
-      <p>OSM data was download from geofabrik on the 10/10/2017.</p>
+      <p>OSM data was downloaded from geofabrik on the 10/10/2017.</p>
     </section>
     <section data-transition="fade" data-background="#b5533c">
      <h1 class="running-h1">[Quantitative assessment of land-use/land-cover mapping]</h1>
@@ -100,7 +100,7 @@ aeroway=aerodrome,helipad,apron
         <img style="" height="400px" src="img/landuse_share.png">
         <p>Note that many "land-use" polygons superimpose to each other. Sum of classes > 100%!</p>
       </section>
-      <section data-transition="fade" data-background="#b5533c">
+      <section data-transition="slide" data-background="#b5533c">
         <h1 class="running-h1">[Quantitative assessment of land-use/land-cover mapping]</h1>
         <h3>Results</h3>
         <h4>Share of some (not all) land-use class in Belgium in CorineLandCover</h4>
@@ -139,7 +139,7 @@ aeroway=aerodrome,helipad,apron
         <img style="" src="img/issue-share-nodes.png">
         <p>See this <a target="_blank" href="https://help.openstreetmap.org/questions/17501/when-mapping-polygons-surrounded-by-streets-should-they-share-nodes-or-be-traced-separately">discussion</a> on the OSM forum</p>
       </section>
-      <section>
+      <section data-transition="slide">
         <p>--> We should not</p>
         <table>
           <tr>
@@ -171,8 +171,12 @@ aeroway=aerodrome,helipad,apron
       <h1 class="running-h1">[OSM land-use mapping issues]</h1>
       <h3><code class="code-highlight">natural=wood</code> vs <code class="code-highlight">landuse=forest</code> for mapping forests in Belgium</h3>
       <img height="400px" style="" src="img/forest.jpg">
-      <p>See this discussion on the OSM forum?</p>
-      <p>--> <code class="code-highlight">landuse=forest</code></p>
+      <div>
+      <small>
+        <p>See this <a target="_blank" href="https://help.openstreetmap.org/questions/324/when-should-we-use-landuseforest-rather-than-naturalwood">discussion</a> on the OSM forum and the <a target="_blank" href="https://wiki.openstreetmap.org/wiki/Forest">Forest wiki page</a></p>
+      </small>
+    </div>
+      <p>--> I prefer  <code class="code-highlight">landuse=forest</code></p>
     </section>
 
     <section data-transition="fade">
