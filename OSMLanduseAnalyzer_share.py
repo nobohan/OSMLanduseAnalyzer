@@ -25,7 +25,7 @@ area_urban = 0
 area_water = 0
 area_industrial = 0
 
-# value taken from the coverage layer, ie, the fully dissolved layer
+# value taken from the coverage layer, ie, the fully dissolved layer (m2)
 area_coverage = 24425865669.5
 
 for f in landuse.getFeatures():
@@ -69,9 +69,10 @@ for f in landuse.getFeatures():
       area_industrial = area_industrial + f['area']
 
   # Water areas
-  if f['type'] == "water" or f['type'] == "riverbank":
+  if f['type'] == "water" or f['type'] == "riverbank" or f['type'] == "basin"  or f['type'] == "reservoir":
      area_water = area_water + f['area']
 
+# Sum of area for agricultural types
 area_agricultural = area_farm + area_farmland + area_orchard + area_meadow
 
 

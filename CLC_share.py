@@ -57,15 +57,16 @@ area_forest = area_forest_bl + area_forest_nl + area_forest_ml
 # Sum of area for agricultural types
 area_agricultural = area_meadow + area_farmland + area_orchard
 
-# Sum of all areas
-area_CLC = area_forest + area_agricultural + area_urban + area_water + area_industrial
+# Other land-use area
+area_other = area_total - area_agricultural - area_forest - area_urban - area_industrial - area_water
 
 # Landuse share results
-print 'agri : ' + str(float(area_agricultural)/float(area_CLC))
-print 'forest : ' + str(float(area_forest)/float(area_CLC))
-print 'urban : ' + str(float(area_urban)/float(area_CLC))
-print 'industrial: ' + str(float(area_industrial)/float(area_CLC))
-print 'water : ' + str(float(area_water)/float(area_CLC))
+print 'agri : ' + str(float(area_agricultural)/float(area_total))
+print 'forest : ' + str(float(area_forest)/float(area_total))
+print 'urban : ' + str(float(area_urban)/float(area_total))
+print 'industrial: ' + str(float(area_industrial)/float(area_total))
+print 'water : ' + str(float(area_water)/float(area_total))
+print 'other land-use : ' + str(float(area_other)/float(area_total))
 
 # Type of forest
 print 'broadleaved : ' + str(float(area_forest_bl)/float(area_forest))

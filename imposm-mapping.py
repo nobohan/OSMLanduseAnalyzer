@@ -53,8 +53,8 @@ db_conf = Options(
     proj='epsg:3857',
 )
 
-landusages2 = Polygons(
-    name = 'landusages2',
+landusages = Polygons(
+    name = 'landusages',
     fields = (
         ('area', PseudoArea()),
         ('leaf_type', String()),
