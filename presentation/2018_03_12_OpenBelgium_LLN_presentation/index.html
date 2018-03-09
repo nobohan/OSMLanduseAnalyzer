@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8">
+  <title>OpenBelgium - OSM - State of the land-use/land-cover mapping in Belgium</title>
+  <meta name="description" content="Talk given at the FOSS4G.be conference, Brussels, 26 October 2017">
+  <meta name="author" content="Julien Minet">
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="css/reveal.css">
+  <link rel="stylesheet" href="css/theme/black.css" id="theme">
+  <!-- Code syntax highlighting -->
+  <link rel="stylesheet" href="lib/css/zenburn.css">
+  <!--  custom css -->
+  <link rel="stylesheet" href="css/custom.css">
+  <!-- Printing and PDF exports -->
+  <script>
+   var link = document.createElement( 'link' );
+   link.rel = 'stylesheet';
+   link.type = 'text/css';
+   link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+   document.getElementsByTagName( 'head' )[0].appendChild( link );
+  </script>
+
+  <!--[if lt IE 9]>
+  <script src="lib/js/html5shiv.js"></script>
+  <![endif]-->
+ </head>
+ <body>
+  <div class="reveal">
+   <!-- Any section element inside of this container is displayed as a slide -->
+   <div class="slides">
+    <section data-transition="fade" data-background="#4d7e65">
+     <h2><i><small> - OpenStreetMap - </small></i></h2>
+     <h2>The long debate of land-use mapping with OpenStreetMap in Belgium</h2>
+     <h4>12.03.2018 - OpenBelgium - LLN</h4>
+     <p><small>Julien Minet</small></p>
+     <p><small><a target="_blank" href="http://www.champs-libres.coop">Champs-Libres.coop</a></small></p>
+     <img width="110" src="img/champs_libres_carre.png" alt="Champs-Libres"></img>
+     <p><small>This presentation and scripts are available on <a target="_blank" href="https://github.com/nobohan/OSMLanduseAnalyzer">github.com/nobohan/OSMLanduseAnalyzer</a>.</small></p>
+    </section>
+    <section style="height: 100%;top: 0;" data-transition="fade" data-background="#4d7e65">
+      <h3>Why?</h3>
+      <a target="_blank" href="http://www.50northspatial.org/map-nature-openstreetmap-approaches-issues-key-tags/">
+        <img style="height: 30%;" src="img/50northspatial_blog_article.png">
+      </a>
+      <a target="_blank" href="http://www.nobohan.be/2017/04/20/landuse-osm-belgium/">
+        <img style="height: 30%;" src="img/nobohan_blog_article.png">
+      </a>
+      <p><a target="blank" href="http://www.nobohan.be/docs/2017_10_26_FOSS4G.be_OSMLanduse/" >Presentation</a> at FOSS4G.be last November</p>
+      <p>Discussions within the OSM community</p>
+    </section>
+    <section data-transition="fade" data-background="#4d7e65">
+     <h3>Objectives</h3>
+       <ul style="line-height:2">
+         <li>1. Quantitative assessment of land-use/land-cover mapping in OSM in Belgium</li>
+         <li>2. Have a look at some applications of OSM land-use data.</li>
+         <li>3. Discuss some cases/issues</li>
+         <li>GOAL: Some Belgian conventions on land-use mapping with OSM in Belgium</li>
+      </ul>
+    </section>
+    <section data-transition="fade" data-background="#4d7e65">
+     <h3>How land-use/land-cover is mapped in OSM?</h3>
+     <ul>
+      <li>by digitalization on aerial imagery, with user/terrain knowledge</li>
+      <li>by semi-automated import from other database (including Corine Land Cover) (but not so much in Belgium)</li>
+      <img  style="width: 80%; height: auto;" src="img/josm_landuse.gif">
+     </ul>
+    </section>
+
+    <section data-transition="fade" data-background="#b5533c">
+     <h1>Quantitative assessment of land-use/land-cover mapping</h1>
+    </section>
+
+    <!--methods -->
+    <!--section data-transition="fade" data-background="#b5533c">
+      <h1 class="running-h1">[Quantitative assessment of land-use/land-cover mapping]</h1>
+      <h3>Methodology</h3>
+      <img style="" height="400px" src="img/osmlanduseanalyzer_flowchart.png">
+      <small>
+        <p>OSM data was downloaded from geofabrik on the 10/10/2017.</p>
+        <p>See methodology on <a target="_blank" href="https://github.com/nobohan/OSMLanduseAnalyzer">github.com/nobohan/OSMLanduseAnalyzer</a>.</p>
+      </small>
+    </section>
+    <!--section data-transition="fade" data-background="#b5533c">
+     <h1 class="running-h1">[Quantitative assessment of land-use/land-cover mapping]</h1>
+     <h3>Methodology</h3>
+       <h4>Selection of tags (key=value) for "land-use"</h4>
+       <p>Tag list inspired by the "land-use" preset of OSM-Bright</p>
+       <pre><code>
+waterway=riverbank;
+landuse=basin,reservoir,park,forest,residential,retail,commercial,industrial,railway,cemetery,grass,farmyard,farm,farmland,wood,meadow,village_green,recreation_ground,allotments,quarry,orchard,vineyard,greenhouse_horticulture;
+leisure=park,garden,playground,golf_course,sports_centre,pitch,stadium,common,nature_reserve;
+natural=wood,land,scrub,wetland,water,heath,grassland;
+highway=pedestrian,footway;
+amenity=university,school,college,library,fuel,parking,cinema,theatre,place_of_worship,hospital;
+place=island;
+aeroway=aerodrome,helipad,apron
+      </code></pre>
+    </section-->
+
+    <!-- RESULTS -->
+    <section data-transition="fade" data-background="#b5533c">
+      <section data-transition="fade" data-background="#b5533c">
+        <h1 class="running-h1">[Quantitative assessment of land-use/land-cover mapping]</h1>
+        <h3>Results</h3>
+        <h4>Global share of "land-use" tags in Belgium</h4>
+        <img style="" height="400px" src="img/landuse_share.png">
+        <p>Note that many "land-use" polygons overlap to each other. Sum of classes > 100%!</p>
+        <small>
+          <p>OSM data was downloaded from geofabrik on the 10/10/2017.</p>
+          <p>See methodology on <a target="_blank" href="https://github.com/nobohan/OSMLanduseAnalyzer">github.com/nobohan/OSMLanduseAnalyzer</a>.</p>
+        </small>
+      </section>
+      <section data-transition="slide" data-background="#b5533c">
+        <h1 class="running-h1">[Quantitative assessment of land-use/land-cover mapping]</h1>
+        <h3>Results</h3>
+        <h4>Share of some (not all) land-use class in Belgium in CorineLandCover</h4>
+        <img style="" height="400px" src="img/landuse_share_clc.png">
+      </section>
+    </section>
+    <section data-transition="fade" data-background="#b5533c">
+      <h1 class="running-h1">[Quantitative assessment of land-use/land-cover mapping]</h1>
+      <h3>Results</h3>
+      <h4>Share of agricultural "land-use" tags in Belgium</h4>
+      <img style="" height="450px" src="img/landuse_share_agri.png">
+    </section>
+    <section data-transition="fade" data-background="#b5533c">
+      <section data-transition="fade" data-background="#b5533c">
+        <h1 class="running-h1">[Quantitative assessment of land-use/land-cover mapping]</h1>
+        <h3>Results</h3>
+        <h4>Part of forested "land-use" that is defined by leaf_type in Belgium</h4>
+        <img style="" height="400px" src="img/landuse_share_forest.png">
+        <p>The deprecated `wood=*` tags are not considered here.</p>
+      </section>
+      <section data-transition="fade" data-background="#b5533c">
+        <h1 class="running-h1">[Quantitative assessment of land-use/land-cover mapping]</h1>
+        <h3>Results</h3>
+        <h4>Part of forested "land-use" that is defined by leaf_cycle in Belgium</h4>
+        <img style="" height="400px" src="img/landuse_share_forest_leaf_cycle.png">
+        <p>The deprecated `wood=*` tags are not considered here.</p>
+      </section>
+    </section>
+    <section data-transition="fade" data-background="#b5533c">
+      <h1 class="running-h1">[Quantitative assessment of land-use/land-cover mapping]</h1>
+      <h3>Results</h3>
+      <h4>Total coverage of "land-use" tags by provinces in Belgium</h4>
+      <img style="" height="400px" src="img/coverage_barchart.png">
+      <p>Overlapping "land-use" polygons were dissolved before computing this coverage!</p>
+      <small>
+        <p>OSM data from geofabrik, 10/10/2017.</p>
+        <p>See methodology on <a target="_blank" href="https://github.com/nobohan/OSMLanduseAnalyzer">github.com/nobohan/OSMLanduseAnalyzer</a>.</p>
+      </small>
+    </section>
+    <!--section data-transition="fade" data-background="#b5533c">
+      <h1 class="running-h1">[Quantitative assessment of land-use/land-cover mapping]</h1>
+      <h3>Results</h3>
+      <h4>Total coverage of "land-use" tags by provinces in Belgium</h4>
+      <img style="" height="400px" src="img/coverage_barchart_2018.png">
+      <p>Overlapping "land-use" polygons were dissolved before computing this coverage!</p>
+      <small>
+        <p>OSM data from geofabrik, 07/03/2018.</p>
+        <p>See methodology on <a target="_blank" href="https://github.com/nobohan/OSMLanduseAnalyzer">github.com/nobohan/OSMLanduseAnalyzer</a>.</p>
+      </small>
+    </section-->
+
+  <!-- APPLICATIONS -->
+    <section data-transition="fade" data-background="#4d7e65">
+      <h1 class="running-h1">[Applications]</h1>
+      <h3>What applications of OSM land-use/land-cover data?</h3>
+      <h2><small>Plain cartography</small></h2>
+      <p>"Do not map for the renderer" they said...</p>
+      <p class="fragment">... but map for the renderers! (paper maps, OpenTopoMap, Thunderforest maps & many many more)</p>
+      <img style="" src="img/openwhatevermap.png">
+    </section>
+
+    <section data-transition="fade" data-background="#4d7e65">
+      <h1 class="running-h1">[Applications]</h1>
+      <h3>What applications of OSM land-use/land-cover data?</h3>
+      <h2><small>In science</small></h2>
+      <ul>
+        <li>support earth observation interpretation / classification: example the lifewatch project.
+        </li>
+        <li>ecological network analysis
+        </li>
+        <li>as base layer for hydrological modelling / flood forecasting
+        </li>
+        <li>as base layer for climate / biogeochimical cycles modelling
+        </li>
+      </ul>
+    </section>
+
+    <section data-transition="fade" data-background="#4d7e65">
+      <h1 class="running-h1">[Applications]</h1>
+      <h3>What are the applications of OSM land-use/land-cover data?</h3>
+      <h2><small>Land-use planning, urbanism</small></h2>
+      <p></p>
+    </section>
+
+    <section data-transition="fade" data-background="#4d7e65">
+      <h1 class="running-h1">[Applications]</h1>
+      <h3>Other Volunteered Geographic Information system focused on land-use</h3>
+      <ul>
+        <li>Geo-wiki challenges
+        </li>
+        <li>EU research project on land-use data from VGI</li>
+      </ul>
+    </section>
+
+
+
+    <!-- LAND-USE MAPPING ISSUES IN OSM -->
+    <section data-transition="fade">
+     <h1>OSM land-use mapping issues</h1>
+    </section>
+
+    <section data-transition="fade">
+      <section>
+        <h1 class="running-h1">[OSM land-use mapping issues - geometry]</h1>
+        <h3>1. Should land-use nodes be shared with nodes of adjacent (linear) features?</h3>
+        <img style="" src="img/issue-share-nodes.png">
+        <p>See this <a target="_blank" href="https://help.openstreetmap.org/questions/17501/when-mapping-polygons-surrounded-by-streets-should-they-share-nodes-or-be-traced-separately">discussion</a> on the OSM forum</p>
+      </section>
+      <section data-transition="slide">
+        <p>--> We should not</p>
+        <table>
+          <tr>
+            <th>PROS</th>
+            <th>CONS</th>
+          </tr>
+          <tr>
+            <td>
+              <p>Geographic features are digitalized with keeping their real ground footprint</p>
+              <p>This allows more features to be mapped in the future (hedges, ditches, ...)</p>
+            </td>
+            <td>
+              <p>The "OSM land-use" database is not continuous</p>
+              <p>Nodes are somehow duplicated: increase in database size</p>
+            </td>
+          </tr>
+        </table>
+      </section>
+    </section>
+
+    <section data-transition="fade">
+      <h1 class="running-h1">[OSM land-use mapping issues - geometry]</h1>
+      <h3>2. Should we superimpose "land-use" features?</h3>
+      <img style="" src="img/issue-trees-in-water.png">
+      <p>See this <a target="_blank" href="https://help.openstreetmap.org/questions/17874/overlapping-land-use-cf-residential-and-forest" >discussion</a> on the OSM forum.</p>
+      <p>--> Why not? (it depends)</p>
+    </section>
+
+    <section data-transition="fade">
+      <h1 class="running-h1">[OSM land-use mapping issues - geometry]</h1>
+      <h3>3. How do we parcellize things, such as gardens, agricultural lands and forests?</h3>
+      <img style="" src="img/parcellisation.png">
+    </section>
+
+    <section data-transition="fade">
+      <h1 class="running-h1">[OSM land-use mapping issues - tagging]</h1>
+      <h3>4. <code class="code-highlight">natural=wood</code> vs <code class="code-highlight">landuse=forest</code> for mapping forests in Belgium</h3>
+      <img height="400px" style="" src="img/forest.jpg">
+      <div>
+      <small>
+        <p>See this <a target="_blank" href="https://help.openstreetmap.org/questions/324/when-should-we-use-landuseforest-rather-than-naturalwood">discussion</a> on the OSM forum and the <a target="_blank" href="https://wiki.openstreetmap.org/wiki/Forest">Forest wiki page</a></p>
+      </small>
+    </div>
+      <p>--> I prefer  <code class="code-highlight">landuse=forest</code></p>
+    </section>
+
+    <section data-transition="fade">
+      <section>
+        <h1 class="running-h1">[OSM land-use mapping issues - tagging]</h1>
+        <h3>5. <code class="code-highlight">landuse=farmland</code> vs
+          <code class="code-highlight">landuse=meadow</code>
+           for mapping meadows in Belgium</h3>
+        <img height="350px" style="" src="img/meadow.jpg">
+        <small>
+          <p>Arable land: landuse=farmland + crop=*</p>
+          <p>Grazed meadows: landuse=meadow + meadow=agricultural + animal=yes</p>
+          <p>Hay meadows: landuse=meadow + meadow=agricultural + crop=grass</p>
+        </small>
+      </section>
+      <section>
+        <p>These tags are often (unappropriately) mixed up!</p>
+        <img src="img/issue-farmland-meadow.png">
+      </section>
+    </section>
+
+    <section data-transition="fade">
+      <h1 class="running-h1">[OSM land-use mapping issues - tagging]</h1>
+      <h3>6. Better describe leaf_type | leaf_cycle in forests?</h3>
+      <img style="" src="img/issue-forest-type.png">
+      <p>Note that forests are rendered by "leaf_type" since the last carto-osm update in August 2017</p>
+    </section>
+
+    <section data-transition="fade">
+      <h1 class="running-h1">[OSM land-use mapping issues - tagging]</h1>
+      <h3>7. Which tag for highways areas? <code class="code-highlight">landuse=highway</code> vs <code class="code-highlight">area:highway=*</code></h3>
+      <img style="" src="img/highways.png">
+    </section>
+
+    <section data-transition="fade">
+      <h1 class="running-h1">[OSM land-use mapping issues - tagging]</h1>
+      <h3>8. Confusion between land-use & land-cover in OSM</h3>
+      <p class="align-left">e.g., <code class="code-highlight">landuse=grass</code> is a land-cover tag.</p>
+      <p class="align-left"><code class="code-highlight">landcover=*</code> tags are not rendered</p>
+      <p class="align-left"><code class="code-highlight">natural=*</code> tags are often pure land-use (and not natural features, at least in Belgium). For instance, most of Belgian ponds are artificial and are tagged as <code class="code-highlight">natural=water</code>+<code class="code-highlight">water=pond</code>.</p>
+    </section>
+
+
+
+    <section data-transition="fade" data-background="#4d7e65">
+      <h3>References</h3>
+      <p>Some scientific articles on the issue:</p>
+       <ul>
+         <li>Production of a land-cover map from OSM and automatic gap-filling with remote sensing data: Schultz et al., <i>Open land cover from OpenStreetMap and remote sensing</i>, International Journal of Applied Earth Observation and Geoinformation, 2017. <a target="_blank" href="http://www.sciencedirect.com/science/article/pii/S0303243417301605">[link]</a> + <a target="_blank" href="http://k1z.blog.uni-heidelberg.de/2017/09/27/open-land-cover-from-openstreetmap-and-remote-sensing/">the blog article</a></li>
+         <li>Assessment of land-use classification and accuracy in OSM in Vienna, Austria : Arsanjani et al., <i>Toward mapping land-use patterns from volunteered geographic
+ information</i>, International Journal of Geographical Information Science, 2013 <a target="_blank" href="http://www.geog.uni-heidelberg.de/md/chemgeo/geog/lehrstuehle/gis/jokar_landusepatterns_vgi.pdf">[link]</a></li>
+         <li>Comparison of OSM against Corine Land Cover in Portugal : Estima & Painho, <i>Exploratory analysis of OpenStreetMap for land use
+ classification</i>, 2013 <a target="_blank" href="https://run.unl.pt/bitstream/10362/13603/1/Estima_Painho_2013a.pdf">[link]</a></li>
+         <li>Accuracy of natural features in OSM (several countries): Winstanley, <i>A study of data representation of natural features in OpenStreetMap</i>, Proceedings of GIScience, 2010 <a target="_blank" href="http://www.researchgate.net/profile/A_Winstanley/publication/229009232_A_study_of_data_representation_of_natural_features_in_openstreetmap/links/004635226deb44cf42000000.pdf">[link]</a></li>
+       </ul>
+    </section>
+   </div>
+
+  </div>
+
+  <script src="lib/js/head.min.js"></script>
+  <script src="js/reveal.js"></script>
+
+  <script>
+
+   // Full list of configuration options available at:
+   // https://github.com/hakimel/reveal.js#configuration
+   Reveal.initialize({
+    controls: true,
+    progress: true,
+    history: true,
+    center: true,
+
+    transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+    // Optional reveal.js plugins
+    dependencies: [
+     { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+     { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+     { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+     { src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+     { src: 'plugin/zoom-js/zoom.js', async: true },
+     { src: 'plugin/notes/notes.js', async: true }
+    ]
+   });
+
+  </script>
+
+ </body>
+</html>

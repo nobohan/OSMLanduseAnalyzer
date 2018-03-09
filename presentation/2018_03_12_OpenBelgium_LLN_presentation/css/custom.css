@@ -1,0 +1,19 @@
+
+.slides section {
+  margin-top: -30px; /*HACK for lower the margin at the top of each slides */
+}
+
+/* Special class for top, running titles */
+.running-h1 {
+  font-size: 20px!important;
+}
+
+.align-left {
+  text-align: left;
+}
+
+.code-highlight {
+  font-size: 70%;
+  font-weight: lighter;
+  color: darkorange;
+}

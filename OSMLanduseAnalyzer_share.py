@@ -1,7 +1,7 @@
 ### SHARE of landuse
 
 ## Select the layers by name
-landuse = QgsMapLayerRegistry.instance().mapLayersByName("osm_landusages2")[0]
+landuse = QgsProject.instance().mapLayersByName("osm_landusages_march18")[0]
 
 area_total = 0
 area_forest = 0
@@ -77,23 +77,23 @@ area_agricultural = area_farm + area_farmland + area_orchard + area_meadow
 
 
 # Landuse share results
-print 'agri : ' + str(area_agricultural/area_coverage)
-print 'forest : ' + str(area_forest/area_coverage)
-print 'urban : ' + str(area_urban/area_coverage)
-print 'industrial: ' + str(area_industrial/area_coverage)
-print 'water : ' + str(area_water/area_coverage)
+print('agri : ' + str(area_agricultural/area_coverage))
+print('forest : ' + str(area_forest/area_coverage))
+print('urban : ' + str(area_urban/area_coverage))
+print('industrial: ' + str(area_industrial/area_coverage))
+print('water : ' + str(area_water/area_coverage))
 
 # Type of forest
-print 'broadleaved : ' + str(area_forest_bl/area_forest)
-print 'needleleaved : ' + str(area_forest_nl/area_forest)
-print 'mixedleaved : ' + str(area_forest_ml/area_forest)
-print 'deciduous : ' + str(area_forest_dec/area_forest)
-print 'evergreen : ' + str(area_forest_eve/area_forest)
-print 'mixedcycle : ' + str(area_forest_mc/area_forest)
-print 'no forest type :' + str(area_forest_no_type/area_forest)
+print('broadleaved : ' + str(area_forest_bl/area_forest))
+print('needleleaved : ' + str(area_forest_nl/area_forest))
+print('mixedleaved : ' + str(area_forest_ml/area_forest))
+print('deciduous : ' + str(area_forest_dec/area_forest))
+print('evergreen : ' + str(area_forest_eve/area_forest))
+print('mixedcycle : ' + str(area_forest_mc/area_forest))
+print('no_forest_type :' + str(area_forest_no_type/area_forest))
 
 # Type of agricultural land
-print 'farm : ' + str(area_farm/area_agricultural)
-print 'farmland : ' + str(area_farmland/area_agricultural)
-print 'meadow : ' + str(area_meadow/area_agricultural)
-print 'orchard : ' + str(area_orchard/area_agricultural)
+print('farm : ' + str(area_farm/area_agricultural))
+print('farmland : ' + str(area_farmland/area_agricultural))
+print('meadow : ' + str(area_meadow/area_agricultural))
+print('orchard : ' + str(area_orchard/area_agricultural))
