@@ -54,7 +54,7 @@ db_conf = Options(
 )
 
 landusages = Polygons(
-    name = 'landusages',
+    name = 'landusages_march18',
     fields = (
         ('area', PseudoArea()),
         ('leaf_type', String()),
